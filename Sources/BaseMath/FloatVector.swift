@@ -195,7 +195,10 @@ extension FloatVector {
   @usableFromInline var storeKey:String { get { return "FloatVector\(Element.self)" } }
   @usableFromInline var tempStore:Self { get {
     if let r = Thread.current.threadDictionary[storeKey] as? Self {
-      if (r.count == count) { return r }
+      if (r.count == count) { 
+        // return r 
+	return Thread.current.threadDictionary[storeKey] as! Self
+      }
     }
     return Thread.setToTLS(Self(count), storeKey)
   }}
